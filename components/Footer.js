@@ -5,7 +5,7 @@ export default function Footer() {
         <>
             <footer className={styles.footer}>
                 <p>
-                    <span>PokeNext</span> &copy; 2024
+                    <span>PokeNext</span> &copy; Gustavo Rodrigues, 2024
                     </p>
             </footer>
         </>
