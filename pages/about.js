@@ -8,10 +8,9 @@ export default function About() {
                 <h1>Sobre o Projeto</h1>
 
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    Este site é um projeto de uma pokedex feita totalmente em next.js, por isso o nome PokeNext. 
+                    O projeto é realizado por meio de APIs para puxar as informações dos pokemons, bem como nome, altura, largura e tipo(s). 
+                    Projeto feito de acordo com o curso de Next.js do canal @hora de codar no youtube.
                 </p>
 
                 <Image
