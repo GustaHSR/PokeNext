@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 
 export const getStaticPaths = async () => {
-  const maxPokemons = 1015
+  const maxPokemons = 1000
   const api = `https://pokeapi.co/api/v2/pokemon/`
 
   const res = await fetch(`${api}/?limit=${maxPokemons}`)
@@ -19,7 +19,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: true,
+    fallback: false,
   }
 }
 
