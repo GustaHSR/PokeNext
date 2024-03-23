@@ -22,7 +22,7 @@ export async function getStaticProps() {
   };
 }
 
-const handleSearch = (pokemons, input) => {
+const HandleSearch = (pokemons, input) => {
   let filteredPokemons = pokemons.slice(0, 251); // Limitando o mapeamento para os primeiros 251 pokémons
 
   if (!input) {
