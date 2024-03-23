@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import SearchBar from '../components/SearchBar'
 
 export async function getStaticProps() {
-  const maxPokemons = 1015;
+  const maxPokemons = 1000000;
   const api = 'https://pokeapi.co/api/v2/pokemon/';
   const res = await fetch(`${api}/?limit=${maxPokemons}`);
   const data = await res.json();
