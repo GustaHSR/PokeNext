@@ -8,7 +8,6 @@ const SearchBar = ({ onSearch }) => {
     setSearchInput(e.target.value);
     onSearch(e.target.value);
   };
-
   return (
     <div className={searchstyles.search_container}>
       <input
