@@ -39,7 +39,7 @@ const handleSearch = (pokemons, input) => {
           />
         </div>
         <div className={styles.pokemon_container}>
-          {filteredPokemons.map((pokemon) => (
+          {pokemons.map((pokemon) => (
             <Card key={pokemon.id} pokemon={pokemon} />
           ))}
         </div>

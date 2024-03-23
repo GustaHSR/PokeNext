@@ -24,7 +24,11 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps = async (context) => {
-  const id = context.params.pokemonid
+  const ide = context.params.pokemonid
+  let id = ide;
+  if(ide > 1025) {
+    id = 10000 + ide%1025;
+  }
 
   const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
 
