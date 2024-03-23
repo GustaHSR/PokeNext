@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css';
 import Card from "@/components/Card";
 import Image from "next/image";
 import { useRouter } from 'next/router';
-import SearchBar from '@/components/SearchBar';
+import SearchBar from '../components/SearchBar'
 
 export async function getStaticProps() {
   const maxPokemons = 1015;
