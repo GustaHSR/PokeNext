@@ -3,7 +3,8 @@ import searchstyles from '../styles/SearchBar.module.css';
 import styles from '../styles/Home.module.css';
 import Card from "@/components/Card";
 import Image from "next/image";
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
+import SearchBar from '@/components/SearchBar';
 
 export async function getStaticProps() {
   const maxPokemons = 1015;
@@ -22,7 +23,7 @@ export async function getStaticProps() {
   };
 }
 
-const HandleSearch = (pokemons, input) => {
+const handleSearch = (pokemons, input) => {
   let filteredPokemons = pokemons.slice(0, 251); // Limitando o mapeamento para os primeiros 251 pokémons
 
   if (!input) {
@@ -46,41 +47,29 @@ const HandleSearch = (pokemons, input) => {
     );
   }
 
-  const searchResult = pokemons.find(pokemon => pokemon.id.toString() === input || pokemon.name === input.toLowerCase());
-  if (searchResult) {    
-    const router = useRouter()
-
-    if(router.isFallback) {
-      return (<h1>carregando</h1>)
-    }
-    return (
-      <div className={searchstyles.result}>
-        <Card key={searchResult.id} pokemon={searchResult} />
-      </div>
-    );
-  }
-
-  return (
-    <h1 className={searchstyles.result}>Não foi possível encontrar esse Pokémon</h1>
-  );
-}
+  return <h1 className={searchstyles.result}>Não foi possível encontrar esse Pokémon</h1>;
+};
 
 export default function Home({ pokemons }) {
   const [searchInput, setSearchInput] = useState('');
+  const router = useRouter();
 
+  const handleSearchInput = (input) => {
+    setSearchInput(input);
+  };
+
+  const searchResult = pokemons.find(pokemon => pokemon.id.toString() === searchInput || pokemon.name === searchInput.toLowerCase());
+  
   return (
     <>
-      <div className={searchstyles.search_container}>
-        <input
-          id='pesquisa'
-          className={searchstyles.search_input}
-          type="text"
-          placeholder="Digite o nome ou o número do Pokemon"
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-        />
-      </div>
-      {handleSearch(pokemons, searchInput)}
+      <SearchBar onSearch={handleSearchInput} />
+      {searchResult ? (
+        <div className={searchstyles.result}>
+          <Card key={searchResult.id} pokemon={searchResult} />
+        </div>
+      ) : (
+        handleSearch(pokemons, searchInput)
+      )}
     </>
   );
 }

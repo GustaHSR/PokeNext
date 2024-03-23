@@ -17,6 +17,7 @@ export default function About() {
                     src='/images/charizard.png'
                     height={300}
                     width={300}
+                    alt='Charizard'
                 />
             </div>
 
