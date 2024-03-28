@@ -1,6 +1,7 @@
 .search_container {
     margin-left: auto;
     margin-right: 2em;
+    margin-top: 6em;
     display: flex;
     border-radius: 1em;
     border: 2px solid #e33d33;
@@ -19,10 +20,12 @@
     outline: none;
     font-size: 1em;
     padding: 0.5em;
+
 }
 
 .result {
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
