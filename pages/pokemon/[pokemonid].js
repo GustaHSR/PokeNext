@@ -63,7 +63,7 @@ const PokemonData = ({ height, weight }) => (
       <p>{weight / 10} kg</p>
     </div>
   </div>
-);
+)
 
 export default function Pokemon({ pokemon }) {
   return (

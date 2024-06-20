@@ -1,24 +1,32 @@
-import Image from "next/image"
-import Link from "next/link"
+import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
 
-import styles from '../styles/Card.module.css'
+import styles from '../styles/Card.module.css';
 
+const Card = ({ pokemon }) => {
+    const [imageSrc, setImageSrc] = useState(
+        `https://img.pokemondb.net/sprites/home/normal/${pokemon.name}.png`
+    );
 
-export default function Card({ pokemon }) {
-    return(
-        <>
-            <div className={styles.card}>
-                <Image 
-                    src={`https://img.pokemondb.net/sprites/home/normal/${pokemon.name}.png`}
-                    width={120}
-                    height={120}
-                    alt={pokemon.name}
-                />
-                <p className={styles.id}>#{pokemon.id}</p>
-                <h3 className={styles.title}>{pokemon.name}</h3>
-                <Link legacyBehavior href={`/pokemon/${pokemon.id}`}><a className={styles.btn}>Detalhes</a></Link>
+    const handleImageError = () => {
+        setImageSrc(`https://projectpokemon.org/images/shiny-sprite/${pokemon.name}.gif`);
+    };
 
-            </div>
-        </>
-    )
-}
+    return (
+        <div className={styles.card}>
+            <Image
+                src={imageSrc}
+                width={120}
+                height={120}
+                alt={pokemon.name}
+                onError={handleImageError}
+            />
+            <p className={styles.id}>#{pokemon.id}</p>
+            <h3 className={styles.title}>{pokemon.name}</h3>
+            <Link legacyBehavior href={`/pokemon/${pokemon.id}`}><a className={styles.btn}>Detalhes</a></Link>
+        </div>
+    );
+};
+
+export default Card;

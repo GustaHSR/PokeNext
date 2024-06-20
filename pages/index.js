@@ -1,13 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import searchstyles from '../styles/SearchBar.module.css';
 import styles from '../styles/Home.module.css';
 import Card from "@/components/Card";
 import Image from "next/image";
-import { useRouter } from 'next/router';
 import SearchBar from '../components/SearchBar'
 
 export async function getStaticProps() {
-  const maxPokemons = 1000000;
+  const maxPokemons = 5000;
   const api = 'https://pokeapi.co/api/v2/pokemon/';
   const res = await fetch(`${api}/?limit=${maxPokemons}`);
   const data = await res.json();
@@ -18,57 +17,58 @@ export async function getStaticProps() {
 
   return {
     props: {
-      pokemons: data.results
+      pokemons: data.results.slice(0, 151), // Limitando os primeiros 151 pokémons
+      allPokemons: data.results // Mantendo uma lista de todos os pokémons
     },
   };
 }
 
 const handleSearch = (pokemons, input) => {
-  let filteredPokemons = pokemons.slice(0, 251); // Limitando o mapeamento para os primeiros 251 pokémons
+  let filteredPokemons = pokemons.filter(pokemon =>
+    pokemon.name.toLowerCase().includes(input.toLowerCase()) || 
+    pokemon.id.toString() === input
+  );
 
-  if (!input) {
+  if (filteredPokemons.length > 0) {
     return (
-      <>
-        <div className={styles.title_container}>
-          <h1 className={styles.title}>Poke<span>Next</span></h1>
-          <Image
-            src='/images/pokeball.png'
-            width={50}
-            height={50}
-            alt='PokeNext'
-          />
-        </div>
-        <div className={styles.pokemon_container}>
-          {filteredPokemons.map((pokemon) => (
-            <Card key={pokemon.id} pokemon={pokemon} />
-          ))}
-        </div>
-      </>
+      <div className={styles.pokemon_container}>
+        {filteredPokemons.map((pokemon) => (
+          <Card key={pokemon.id} pokemon={pokemon} />
+        ))}
+      </div>
     );
+  } else {
+    return <h1 className={searchstyles.result}>Não foi possível encontrar esse Pokémon</h1>;
   }
-
-  return <h1 className={searchstyles.result}>Não foi possível encontrar esse Pokémon</h1>;
 };
 
-export default function Home({ pokemons }) {
+export default function Home({ pokemons, allPokemons }) {
   const [searchInput, setSearchInput] = useState('');
-  const router = useRouter();
 
   const handleSearchInput = (input) => {
     setSearchInput(input);
   };
 
-  const searchResult = pokemons.find(pokemon => pokemon.id.toString() === searchInput || pokemon.name === searchInput.toLowerCase());
-  
   return (
     <>
       <SearchBar onSearch={handleSearchInput} />
-      {searchResult ? (
-        <div className={searchstyles.result}>
-          <Card key={searchResult.id} pokemon={searchResult} />
-        </div>
-      ) : (
-        handleSearch(pokemons, searchInput)
+      {searchInput ? handleSearch(allPokemons, searchInput) : (
+        <>
+          <div className={styles.title_container}>
+            <h1 className={styles.title}>Poke<span>Next</span></h1>
+            <Image
+              src='/images/pokeball.png'
+              width={50}
+              height={50}
+              alt='PokeNext'
+            />
+          </div>
+          <div className={styles.pokemon_container}>
+            {pokemons.map((pokemon) => (
+              <Card key={pokemon.id} pokemon={pokemon} />
+            ))}
+          </div>
+        </>
       )}
     </>
   );
