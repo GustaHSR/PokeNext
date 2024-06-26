@@ -8,6 +8,7 @@ export default function PokedexPage() {
     const [inputValue, setInputValue] = useState('');
 
     useEffect(() => {
+
         renderPokemon(searchPokemon);
     }, [searchPokemon]);
 
@@ -28,7 +29,7 @@ export default function PokedexPage() {
             setPokemon({
                 name: data.name,
                 id: data.id,
-                image: data.sprites.versions['generation-v']['black-white'].animated.front_default,
+                image: data.sprites.versions['generation-v']['black-white'].animated.front_default || data.sprites.front_default
                 
             });
         setSearchPokemon(data.id)
@@ -81,7 +82,7 @@ export default function PokedexPage() {
                         />
                     </form>
                     <div className={styles.buttons}>
-                        <button className={`${styles.button} ${styles.btnPrev}`} onClick={handlePrev}>Prev &lt;</button>
+                        <button className={`${styles.button} ${styles.btnPrev}`} onClick={handlePrev}>&lt; Prev </button>
                         <button className={`${styles.button} ${styles.btnNext}`} onClick={handleNext}>Next &gt;</button>
                     </div>
                 </main>
